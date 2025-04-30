@@ -55,6 +55,12 @@
             margin-right: 10px;
         }
 
+        #logout {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 200px;
+        }
         .main-content {
             margin-left: 250px;
             padding: 20px;
@@ -211,6 +217,13 @@
             display: none;
         }
 
+        .search-button {
+            width: 70px;
+            height: 70px;
+            border-radius: 5px;
+            padding: 8px;
+        }
+
         @media (max-width: 768px) {
             .toggle-sidebar {
                 display: inline-block;
@@ -224,15 +237,39 @@
                 border-radius: 5px;
                 padding: 8px 12px;
             }
+
+            .search-container .row {
+                display: flex;
+                flex-wrap: nowrap;
+            }
+
+            .search-container .col-md-10,
+            .search-container .col-sm-9 {
+                flex: 1;
+            }
+
+            .search-container .col-md-2,
+            .search-container .col-sm-3 {
+                width: auto;
+                padding-left: 5px;
+            }
+
+            .search-button {
+                width: 40px;
+                height: 40px;
+                padding: 8px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
         }
     </style>
 </head>
 <body>
-<!--Dashboard-->
+    <!--Dashboard Sidebar-->
     <button class="toggle-sidebar btn">
         <i class="fas fa-bars"></i>
     </button>
-
     <nav class="sidebar">
         <div class="sidebar-header">
             <h3><i class="fas fa-shopping-cart"></i> SuperPOS</h3>
@@ -271,7 +308,6 @@
             </li>
         </ul>
     </nav>
-
     <!-- Main Content -->
     <div class="main-content">
         <!-- Dashboard Section -->
@@ -343,7 +379,6 @@
                 </div>
             </div>
         </section>
-
         <!-- Customer Management-->
         <section id="customerSection">
             <h2 class="mb-4"><i class="fas fa-users"></i> Customer Management</h2>
@@ -866,62 +901,70 @@
 <script src="assets/lib/jquery-3.7.1.min.js"></script>
 <script>
     $(document).ready(function() {
-        $("#customerSection").hide();
-        $("#itemsSection").hide();
-        $("#ordersSection").hide();
-        $("#orderDetailsSection").hide();
+     $("#customerSection").hide();
+     $("#itemsSection").hide();
+     $("#ordersSection").hide();
+     $("#orderDetailsSection").hide();
 
-        const navLinks = document.querySelectorAll(".sidebar .nav-link");
+     const navLinks = document.querySelectorAll(".sidebar .nav-link");
+     const toggleButton = document.querySelector(".toggle-sidebar");
 
-        navLinks[0].classList.add("active");
+     navLinks[0].classList.add("active");
 
-        navLinks.forEach((link, index) => {
-            link.addEventListener("click", function(event) {
-                navLinks.forEach(link => link.classList.remove("active"));
-                this.classList.add("active");
+     navLinks.forEach((link, index) => {
+         link.addEventListener("click", function(event) {
+             navLinks.forEach(link => link.classList.remove("active"));
+             this.classList.add("active");
 
-                // Hide all sections
-                $("#dashboard").hide();
-                $("#customerSection").hide();
-                $("#itemsSection").hide();
-                $("#ordersSection").hide();
-                $("#orderDetailsSection").hide();
+             // Hide all sections
+             $("#dashboard").hide();
+             $("#customerSection").hide();
+             $("#itemsSection").hide();
+             $("#ordersSection").hide();
+             $("#orderDetailsSection").hide();
 
-                // Show appropriate section based on index
-                switch(index) {
-                    case 0: // Dashboard
-                        $("#dashboard").show();
-                        break;
-                    case 1: // Manage Customers
-                        $("#customerSection").show();
-                        break;
-                    case 2: // Manage Items
-                        $("#itemsSection").show();
-                        break;
-                    case 3: // Place Order
-                        $("#ordersSection").show();
-                        break;
-                    case 4: // Order Details
-                        $("#orderDetailsSection").show();
-                        break;
-                }
-            });
-        });
+             // Show appropriate section based on index
+             switch(index) {
+                 case 0: // Dashboard
+                     $("#dashboard").show();
+                     break;
+                 case 1: // Manage Customers
+                     $("#customerSection").show();
+                     break;
+                 case 2: // Manage Items
+                     $("#itemsSection").show();
+                     break;
+                 case 3: // Place Order
+                     $("#ordersSection").show();
+                     break;
+                 case 4: // Order Details
+                     $("#orderDetailsSection").show();
+                     break;
+             }
+         });
+     });
 
-        // Logout functionality
-        $("#logout").click(function() {
-            alert("Logging out...");
-            window.location.href = "index.html";
-        });
+     // Toggle sidebar button
+     toggleButton.addEventListener("click", function() {
+         const sidebar = document.querySelector(".sidebar");
+         const mainContent = document.querySelector(".main-content");
 
-        // Responsive sidebar toggle for mobile view and take the toggle button to the right side of the side bar
-        const sidebar = document.querySelector(".sidebar");
-        const toggleButton = document.querySelector(".sidebar-toggle");
-        toggleButton.addEventListener("click", function() {
-            sidebar.classList.toggle("open");
-            toggleButton.classList.toggle("open");
-        });
-    });
+         if(sidebar.classList.contains("active")) {
+             sidebar.classList.remove("active");
+             mainContent.classList.remove("active");
+         } else {
+             sidebar.classList.add("active");
+             mainContent.classList.add("active");
+         }
+     });
+
+     // Logout functionality
+     $("#logout").click(function() {
+         alert("Logging out...");
+         window.location.href = "index.html";
+     });
+ });
+
 </script>
 </body>
 </html>
