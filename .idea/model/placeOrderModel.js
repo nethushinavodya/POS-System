@@ -1,3 +1,11 @@
 export default class PlaceOrderModel {
-    
+    constructor(orderId, customerId, itemId, description, unitPrice, quantity, total) {
+        this._orderId = orderId;
+        this._customerId = customerId;
+        this._itemId = itemId;
+        this._description = description;
+        this._unitPrice = unitPrice;
+        this._quantity = quantity;
+        this._total = total;
+    }
 }
