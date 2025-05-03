@@ -127,132 +127,108 @@
         </section>
         <!-- Customer Management-->
         <section id="customerSection">
-            <h2 class="mb-4"><i class="fas fa-users"></i> Customer Management</h2>
+        <h2 class="mb-4"><i class="fas fa-users"></i> Customer Management</h2>
 
-            <div class="search-container">
-                <div class="row g-3 align-items-center">
-                    <div class="col-md-10 col-sm-9">
-                        <div class="input-group">
-                            <span class="input-group-text bg-light"><i class="fas fa-user-tag"></i></span>
-                            <select class="form-select" id="customerContactSelect">
-                                <option selected value="">Select Contact</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="col-md-2 col-sm-3">
-                        <button class="btn btn-info search-button" type="button" id="customerSearch">
-                            <i class="fas fa-search me-md-2"></i><span class="d-none d-md-inline">Search</span>
-                        </button>
+        <div class="search-container">
+            <div class="row g-3 align-items-center">
+                <div class="col-md-10 col-sm-9">
+                    <div class="input-group">
+                        <label for="customerContactSelect" class="visually-hidden">Select Contact</label>
+                        <span class="input-group-text bg-light"><i class="fas fa-user-tag"></i></span>
+                        <select class="form-select" id="customerContactSelect" autocomplete="off">
+                            <option selected value="">Select Contact</option>
+                        </select>
                     </div>
                 </div>
+                <div class="col-md-2 col-sm-3">
+                    <button class="btn btn-info search-button" type="button" id="customerSearch">
+                        <i class="fas fa-search me-md-2"></i><span class="d-none d-md-inline">Search</span>
+                    </button>
+                </div>
             </div>
+        </div>
 
-            <div class="card">
-                <div class="card-header bg-primary text-white">
-                    <i class="fas fa-user-plus"></i> Add/Update Customer
+        <div class="card">
+            <div class="card-header bg-primary text-white">
+                <i class="fas fa-user-plus"></i> Add/Update Customer
+            </div>
+            <div class="card-body">
+                <form id="customerForm">
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <label for="customerId" class="form-label">Customer ID</label>
+                            <div class="input-group">
+                                <span class="input-group-text"><i class="fas fa-id-card"></i></span>
+                                <input type="text" id="customerId" class="form-control" placeholder="Customer Id">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="name" class="form-label">Customer Name</label>
+                            <div class="input-group">
+                                <span class="input-group-text"><i class="fas fa-user"></i></span>
+                                <input type="text" id="name" class="form-control" placeholder="Name" required autocomplete="name">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <label for="address" class="form-label">Address</label>
+                            <div class="input-group">
+                                <span class="input-group-text"><i class="fas fa-map-marker-alt"></i></span>
+                                <input type="text" id="address" class="form-control" placeholder="Address" required autocomplete="street-address">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="telephone" class="form-label">Telephone</label>
+                            <div class="input-group">
+                                <span class="input-group-text"><i class="fas fa-phone"></i></span>
+                                <input type="tel" id="telephone" class="form-control" placeholder="Contact Number" required autocomplete="tel">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mt-3">
+                        <div class="text-end mt-3">
+                            <button type="button" class="btn btn-success" id="customerSave">
+                                <i class="fas fa-save"></i> Save
+                            </button>
+
+                            <button class="btn btn-primary" type="button" id="customerUpdate">
+                                <i class="fas fa-edit"></i> Update
+                            </button>
+
+                            <button type="reset" class="btn btn-secondary">
+                                <i class="fas fa-broom"></i> Clear
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div id="customerList">
+            <div class="card mt-4">
+                <div class="card-header bg-secondary text-white">
+                    <i class="fas fa-table"></i> Customer List
                 </div>
                 <div class="card-body">
-                    <form id="customerForm">
-                        <input type="hidden" id="customerId">
-                        <div class="row mb-3">
-                            <div class="col-md-6">
-                                <label for="id" class="form-label">Customer ID</label>
-                                <div class="input-group">
-                                    <span class="input-group-text"><i class="fas fa-id-card"></i></span>
-                                    <input type="text" id="id" class="form-control" placeholder="C001" required>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <label for="name" class="form-label">Customer Name</label>
-                                <div class="input-group">
-                                    <span class="input-group-text"><i class="fas fa-user"></i></span>
-                                    <input type="text" id="name" class="form-control" placeholder="Saman Perera" required>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row mb-3">
-                            <div class="col-md-6">
-                                <label for="address" class="form-label">Address</label>
-                                <div class="input-group">
-                                    <span class="input-group-text"><i class="fas fa-map-marker-alt"></i></span>
-                                    <input type="text" id="address" class="form-control" placeholder="Colombo" required>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <label for="telephone" class="form-label">Telephone</label>
-                                <div class="input-group">
-                                    <span class="input-group-text"><i class="fas fa-phone"></i></span>
-                                    <input type="tel" id="telephone" class="form-control" placeholder="+94 745 456 789" required>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row mt-3">
-                            <div class="text-end mt-3">
-                                <button class="btn btn-success" type="button" id="customerSave">
-                                    <i class="fas fa-save"></i> Save
-                                </button>
-
-                                <button class="btn btn-primary" type="button" id="customerUpdate">
-                                    <i class="fas fa-edit"></i> Update
-                                </button>
-
-                                <button class="btn btn-danger" type="button" id="customerDelete">
-                                    <i class="fas fa-trash"></i> Delete
-                                </button>
-
-                                <button type="reset" class="btn btn-secondary">
-                                    <i class="fas fa-broom"></i> Clear
-                                </button>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-            </div>
-            <div id="customerList">
-                <div class="card mt-4">
-                    <div class="card-header bg-secondary text-white">
-                        <i class="fas fa-table"></i> Customer List
-                    </div>
-                    <div class="card-body">
-                        <div class="table-responsive">
-                            <table class="table table-striped table-hover">
-                                <thead class="table-dark">
-                                <tr>
-                                    <th>ID</th>
-                                    <th>Name</th>
-                                    <th>Address</th>
-                                    <th>Contact </th>
-                                    <th>Actions</th>
-                                </tr>
-                                </thead>
-                                <tbody id="customerTableBody">
-                                <tr>
-                                    <td>C001</td>
-                                    <td>Saman Perera</td>
-                                    <td>Colombo</td>
-                                    <td>+94 754 456 789</td>
-                                    <td>
-                                        <button class="btn btn-sm btn-primary me-1"><i class="fas fa-edit"></i></button>
-                                        <button class="btn btn-sm btn-danger"><i class="fas fa-trash"></i></button>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>C002</td>
-                                    <td>Sunil Fernando</td>
-                                    <td>Matara</td>
-                                    <td>+94 771 654 321</td>
-                                    <td>
-                                        <button class="btn btn-sm btn-primary me-1"><i class="fas fa-edit"></i></button>
-                                        <button class="btn btn-sm btn-danger"><i class="fas fa-trash"></i></button>
-                                    </td>
-                                </tr>
-                                </tbody>
-                            </table>
-                        </div>
+                    <div class="table-responsive">
+                        <table class="table table-striped table-hover">
+                            <thead class="table-dark">
+                            <tr>
+                                <th>ID</th>
+                                <th>Name</th>
+                                <th>Address</th>
+                                <th>Contact </th>
+                                <th>Actions</th>
+                            </tr>
+                            </thead>
+                            <tbody id="customerTableBody">
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>
-        </section>
+        </div>
+    </section>
         <!--Item Management-->
         <section id="itemsSection">
             <h2 class="mb-4"><i class="fas fa-boxes"></i> Item Management</h2>
@@ -643,6 +619,9 @@
     </div>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/js/bootstrap.bundle.min.js"></script>
 <script src=".idea/assets/lib/jquery-3.7.1.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script type="module" src=".idea/controllers/customerController.js"></script>
+
 <script>
     let dashboard = document.getElementById("dashboardNav");
     let customers = document.getElementById("customerNav");
