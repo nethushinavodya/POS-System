@@ -270,7 +270,7 @@
                                 <label for="itemName" class="form-label">Item Name</label>
                                 <div class="input-group">
                                     <span class="input-group-text"><i class="fas fa-box-open"></i></span>
-                                    <input type="text" id="itemName" class="form-control" placeholder="Laptop" required>
+                                    <input type="text" id="itemName" class="form-control" placeholder="Description" required autocomplete="itemName">
                                 </div>
                             </div>
                         </div>
@@ -279,14 +279,14 @@
                                 <label for="itemPrice" class="form-label">Item Price</label>
                                 <div class="input-group">
                                     <span class="input-group-text"><i class="fas fa-dollar-sign"></i></span>
-                                    <input type="number" id="itemAmount" class="form-control" placeholder="1000.00" step="0.01" required>
+                                    <input type="number" id="itemAmount" class="form-control" placeholder="Amount(Rs.)" step="0.01" required autocomplete="itemPrice">
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <label for="itemQty" class="form-label">Item Quantity</label>
                                 <div class="input-group">
                                     <span class="input-group-text"><i class="fas fa-boxes-stacked"></i></span>
-                                    <input type="number" id="itemQty" class="form-control" placeholder="10" required>
+                                    <input type="number" id="itemQty" class="form-control" placeholder="Quantity" required autocomplete="itemQty">
                                 </div>
                             </div>
                         </div>
@@ -361,8 +361,6 @@
                                     <span class="input-group-text"><i class="fas fa-user"></i></span>
                                     <select class="form-select" id="customerSelect" required>
                                         <option selected disabled value="">Choose a customer</option>
-                                        <option value="C001">C001 - John Doe</option>
-                                        <option value="C002">C002 - Jane Smith</option>
                                     </select>
                                 </div>
                             </div>
@@ -381,9 +379,6 @@
                                     <span class="input-group-text"><i class="fas fa-box"></i></span>
                                     <select class="form-select" id="itemSelect" required>
                                         <option selected disabled value="">Choose an item</option>
-                                        <option value="I001">I001 - Laptop Dell XPS 13</option>
-                                        <option value="I002">I002 - Smartphone iPhone 13</option>
-                                        <option value="I003">I003 - Headphones Sony WH-1000XM4</option>
                                     </select>
                                 </div>
                             </div>
@@ -440,20 +435,6 @@
                             </tr>
                             </thead>
                             <tbody id="cartItems">
-                            <tr>
-                                <td>P001</td>
-                                <td>C001</td>
-                                <td>I001</td>
-                                <td>Laptop Dell XPS 13</td>
-                                <td>$999.99</td>
-                                <td>2</td>
-                                <td>$1,999.98</td>
-                                <td>
-                                    <button class="btn btn-sm btn-danger remove-item">
-                                        <i class="fas fa-trash"></i>
-                                    </button>
-                                </td>
-                            </tr>
                             </tbody>
                             <tfoot>
                             <tr>

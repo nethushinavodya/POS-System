@@ -101,8 +101,8 @@ $(document).on("click", "#itemUpdate", () => {
     }
 });
 
-//set item
-$("#itemTableBody").on("click", "tr", () => {
+//set item to lable when clicked on table
+$("#itemTableBody").on("click", "tr", function () {
     let itemId = $(this).find("td").eq(0).text();
     let itemSet = itemsArray.find((item) => item._itemId === itemId);
     $("#itemCode").val(itemSet._itemId);
@@ -119,7 +119,7 @@ function clearText() {
     $("#itemQty").val("");
 }
 
-//set item
+//set item to the dropdown
 const setItem = () => {
     $("#itemIdSelect").empty();
     $("#itemIdSelect").append('<option value=" ">Select Item</option>');
