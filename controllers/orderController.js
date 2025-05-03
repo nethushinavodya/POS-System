@@ -1,5 +1,4 @@
 import placeOrderModel from "../models/placeOrderModel.js";
-import orderDetailsModel from "../models/orderDetailsModel.js";
 import {customersArray, itemsArray, ordersArray} from "../db/db.js";
 
 //load all orders
@@ -158,9 +157,11 @@ $(document).on("click", "#addToCart", () => {
 });
 
 //place order
-$(document).on("click", "#placeOrder", () => {
+$("#placeOrder").on("click", function (event) {
+    event.preventDefault();
     let cashPaid = $("#cashPaid").val();
     let balance = $("#balance").val();
+    console.log(cashPaid, balance);
     if (cashPaid === "" || balance === "") {
         Swal.fire({
             title: 'error',
@@ -169,10 +170,15 @@ $(document).on("click", "#placeOrder", () => {
             confirmButtonText: 'OK'
         })
     } else {
-        let order = new placeOrderModel(null, null, null, null, null, null, null);
+        let order = new placeOrderModel(cashPaid, balance);
         ordersArray.push(order);
         loadAllOrders();
         clearText();
+
+        $("#cashPaid").val('');
+        $("#balance").val('');
+        $("#cartItems").empty();
+        $("#cartTotal").text('Rs. 0.00');
 
         Swal.fire({
             title: 'success',

@@ -22,21 +22,22 @@ function loadAllCustomers() {
                     </tr>`;
         $("#customerTableBody").append(data);
     });
-    //delete customer
-    $(document).on("click", "#deleteCustomer", () => {
-        let customerId = $(this).closest("tr").find("td").eq(0).text();
-        let index = customersArray.findIndex((customer) => customer._customerId === customerId);
-        customersArray.splice(index, 1);
-        loadAllCustomers();
+}
 
-        Swal.fire({
-            title: 'success',
-            text: 'Customer deleted successfully',
-            icon: 'success',
-            confirmButtonText: 'OK'
-        });
+//delete customer
+$(document).on("click", "#deleteCustomer", () => {
+    let customerId = $(this).closest("tr").find("td").eq(0).text();
+    let index = customersArray.findIndex((customer) => customer._customerId === customerId);
+    customersArray.splice(index, 1);
+    loadAllCustomers();
+
+    Swal.fire({
+        title: 'success',
+        text: 'Customer deleted successfully',
+        icon: 'success',
+        confirmButtonText: 'OK'
     });
-};
+});
 
 //save customer
 $(document).ready(() => {

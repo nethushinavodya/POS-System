@@ -22,22 +22,22 @@ function loadItems() {
                     </tr>`;
         $("#itemTableBody").append(data);
     });
-    //delete item
-    $(document).on("click", "#deleteItem", () => {
-        let itemId = $(this).closest("tr").find("td").eq(0).text();
-        let index = itemsArray.findIndex((item) => item._itemId === itemId);
-        itemsArray.splice(index, 1);
-        loadItems();
-        setItem();
-
-        Swal.fire({
-            title: 'success',
-            text: 'Item deleted successfully',
-            icon: 'success',
-            confirmButtonText: 'OK'
-        });
-    });
 }
+//delete item
+$(document).on("click", "#deleteItem", () => {
+    let itemId = $(this).closest("tr").find("td").eq(0).text();
+    let index = itemsArray.findIndex((item) => item._itemId === itemId);
+    itemsArray.splice(index, 1);
+    loadItems();
+    setItem();
+
+    Swal.fire({
+        title: 'success',
+        text: 'Item deleted successfully',
+        icon: 'success',
+        confirmButtonText: 'OK'
+    });
+});
 
 //save item
 $(document).on("click", "#itemSave", () => {
