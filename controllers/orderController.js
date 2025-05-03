@@ -95,8 +95,7 @@ $("#customerIdSelect").on("change", () => {
 $(document).ready(() => {
     $("#placeOrderNav").on("click", function () {
     console.log("clicked");
-    let orderId = "ORD" + String(ordersArray.length + 1).padStart(3, '0');
-    $("#orderId").val(orderId);
+    $("#orderDate").val(new Date().toISOString().split('T')[0]);
     loadAllOrders();
     loadItems();
     loadCustomers();
