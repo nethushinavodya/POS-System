@@ -59,6 +59,7 @@ $(document).ready(() => {
             customersArray.push(customer);
             console.log(customersArray);
             loadAllCustomers();
+            clearText();
 
             Swal.fire({
                 title: 'success',
@@ -90,6 +91,7 @@ $(document).on("click", "#customerUpdate", () => {
         customer._address = address;
         customer._telephone = telephone;
         loadAllCustomers();
+        clearText();
 
         Swal.fire({
             title: 'success',
@@ -108,3 +110,10 @@ $("#customerTableBody").on("click", 'tr', function () {
     $("#address").val(customer._address);
     $("#telephone").val(customer._telephone);
 });
+
+function clearText() {
+    $("#customerId").val("");
+    $("#name").val("");
+    $("#address").val("");
+    $("#telephone").val("");
+}
