@@ -90,16 +90,20 @@ const loadCustomers = () => {
 $("#customerIdSelect").on("change", () => {
     let customerId = $("#customerIdSelect").val();
     let customer = customersArray.find((customer) => customer._customerId === customerId);
-    $("#customerInfo").val(`Name: ${customer._name}, Address: ${customer._address}, Contact: ${customer._telephone}`);
+    $("#customerInfo").val(`Name: ${customer._name}\nAddress: ${customer._address}\nContact: ${customer._telephone}`);
 });
 $(document).ready(() => {
     $("#placeOrderNav").on("click", function () {
     console.log("clicked");
+    let orderId = "ORD" + String(ordersArray.length + 1).padStart(3, '0');
+    $("#orderId").val(orderId);
     loadAllOrders();
     loadItems();
-    loadCustomers()
+    loadCustomers();
     });
 })
+
+
 //add to cart
 $(document).on("click", "#addToCart", () => {
     let orderId = $("#orderId").val();
