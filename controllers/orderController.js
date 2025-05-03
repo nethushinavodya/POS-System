@@ -1,6 +1,6 @@
 import placeOrderModel from "../models/placeOrderModel.js";
-import orderDetailsModel from "../models/orderDetailsModel";
-import {customersArray, itemsArray, ordersArray, orderDetailsArray} from "../db/db";
+import orderDetailsModel from "../models/orderDetailsModel.js";
+import {customersArray, itemsArray, ordersArray} from "../db/db.js";
 
 //load all orders
 function loadAllOrders() {
@@ -35,7 +35,6 @@ function loadAllOrders() {
         let index = ordersArray.findIndex((order) => order._orderId === orderId);
         ordersArray.splice(index, 1);
         loadAllOrders();
-        setItemId();
         clearText();
 
         Swal.fire({
@@ -46,65 +45,6 @@ function loadAllOrders() {
         });
     });
 }
-//set customer id
-const setCustomerId = () => {
-    $("#customerSelect").empty();
-    customersArray.map((customer) => {
-        let customerId = customer._customerId;
-        let customerName = customer._name;
-        let data = `<option value="${customerId}">${customerName}</option>`;
-        $("#customerSelect").append(data);
-
-        $("#customerSelect").on("change", () => {
-            let customerId = $("#customerSelect").val();
-            let customer = customersArray.find((customer) => customer._customerId === customerId);
-            $("#customerInfo").val(customer._name, customer._address, customer._telephone);
-        });
-    });
-}
-
-//set item id
-const setItemId = () => {
-    $("#itemSelect").empty();
-    itemsArray.map((item) => {
-        let itemId = item._itemId;
-        let itemName = item._name;
-        let data = `<option value="${itemId}">${itemName}</option>`;
-        $("#itemSelect").append(data);
-    });
-
-    $("#itemSelect").on("change", () => {
-        let itemId = $("#itemSelect").val();
-        let item = itemsArray.find((item) => item._itemId === itemId);
-        $("#itemPrice").val(item._unitPrice);
-        $("#stockQty").val(item._quantity);
-    });
-}
-//save order
-$(document).on("click", "#orderSave", () => {
-    let orderId = $("#orderId").val();
-    let customerId = $("#customerId").val();
-    let itemId = $("#itemId").val();
-    let description = $("#itemName").val();
-    let unitPrice = $("#unitPrice").val();
-    let quantity = $("#quantity").val();
-    let total = $("#total").val();
-
-    let order = new placeOrderModel(orderId, customerId, itemId, description, unitPrice, quantity, total);
-    ordersArray.push(order);
-    loadAllOrders();
-    setCustomerId()
-    setItemId()
-    clearText();
-
-    Swal.fire({
-        title: 'success',
-        text: 'Order added successfully',
-        icon: 'success',
-        confirmButtonText: 'OK'
-    });
-});
-
 //clear text
 function clearText() {
     $("#orderId").val('');
@@ -115,3 +55,80 @@ function clearText() {
     $("#quantity").val('');
     $("#total").val('');
 }
+//load items
+const loadItems = () => {
+    console.log("load items");
+    console.log("itemsArray length:", itemsArray.length);
+    $("#selectItem").empty();
+    $("#selectItem").append('<option value=" ">Select Item</option>');
+    itemsArray.map((item) => {
+        console.log(item._itemId);
+        let data = `<option value="${item._itemId}">${item._itemId}</option>`
+        $("#selectItem").append(data);
+    });
+}
+$("#selectItem").on("change", () => {
+    let itemId = $("#selectItem").val();
+    let item = itemsArray.find((item) => item._itemId === itemId);
+    $("#itemPrice").val(item._unitPrice);
+    $("#stockQty").val(item._quantity);
+});
+
+//load customers
+const loadCustomers = () => {
+    console.log("load customers");
+    console.log("customersArray length:", customersArray.length);
+    $("#customerIdSelect").empty();
+    $("#customerIdSelect").append('<option value=" ">Select Customer</option>');
+    customersArray.map((customer) => {
+        console.log(customer._customerId);
+        let data = `<option value="${customer._customerId}">${customer._customerId}</option>`
+        $("#customerIdSelect").append(data);
+    });
+}
+
+$("#customerIdSelect").on("change", () => {
+    let customerId = $("#customerIdSelect").val();
+    let customer = customersArray.find((customer) => customer._customerId === customerId);
+    $("#customerInfo").val(`Name: ${customer._name}, Address: ${customer._address}, Contact: ${customer._telephone}`);
+});
+$(document).ready(() => {
+    $("#placeOrderNav").on("click", function () {
+    console.log("clicked");
+    loadAllOrders();
+    loadItems();
+    loadCustomers()
+    });
+})
+//add to cart
+$(document).on("click", "#addToCart", () => {
+    let orderId = $("#orderId").val();
+    let customerId = $("#customerId").val();
+    let itemId = $("#selectItem").val();
+    let description = $("#description").val();
+    let unitPrice = $("#unitPrice").val();
+    let quantity = $("#quantity").val();
+    let total = $("#total").val();
+
+    if (orderId === "" || customerId === "" || itemId === "" || description === "" || unitPrice === "" || quantity === "" || total === "") {
+        Swal.fire({
+            title: 'error',
+            text: 'All fields are required',
+            icon: 'error',
+            confirmButtonText: 'OK'
+        })
+    } else {
+        let order = new placeOrderModel(orderId, customerId, itemId, description, unitPrice, quantity, total);
+        ordersArray.push(order);
+        loadAllOrders();
+        loadItems();
+        clearText();
+
+        Swal.fire({
+            title: 'success',
+            text: 'Order added successfully',
+            icon: 'success',
+            confirmButtonText: 'OK'
+        });
+    }
+});

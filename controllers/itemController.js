@@ -124,6 +124,7 @@ const setItem = () => {
     $("#itemIdSelect").empty();
     $("#itemIdSelect").append('<option value=" ">Select Item</option>');
     itemsArray.map((item) => {
+        console.log(item._itemId);
         let data = `<option value="${item._itemId}">${item._name}</option>`
         $("#itemIdSelect").append(data);
     });
