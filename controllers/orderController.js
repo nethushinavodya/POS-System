@@ -27,6 +27,21 @@ function loadAllOrders() {
                         </td>
                     </tr>`;
         $("#cartItems").append(data);
+
+    });
+
+    //total amount
+    let total = 0;
+    ordersArray.forEach(order => {
+        total += order.total;
+    });
+    $("#cartTotal").text('Rs. ' + total.toFixed(2));
+
+    //cash paid
+    $(document).on("input", "#cashPaid", () => {
+        let cashPaid = $("#cashPaid").val();
+        let balance = total - cashPaid;
+        $("#balance").val('Rs. ' + balance.toFixed(2));
     });
 
     //delete order
@@ -49,8 +64,8 @@ function loadAllOrders() {
 function clearText() {
     $("#orderID").val('');
     $("#customerIdSelect").val('');
-    $("#itemIdSelect").val('');
-    $("#description").val('');
+    $("#selectItem").val('');
+    $("#customerInfo").val('');
     $("#itemPrice").val('');
     $("#stockQty").val('');
     $("#orderQty").val('');
@@ -115,6 +130,7 @@ $(document).on("click", "#addToCart", () => {
     let quantity = $("#orderQty").val();
     let total = unitPrice * quantity;
     console.log(orderId, customerId, itemId, description, unitPrice, quantity, total);
+
     if (orderId === "" || customerId === "" || itemId === "" || description === "" || unitPrice === "" || quantity === "" || total === "") {
         Swal.fire({
             title: 'error',
@@ -135,6 +151,32 @@ $(document).on("click", "#addToCart", () => {
         Swal.fire({
             title: 'success',
             text: 'Order added successfully',
+            icon: 'success',
+            confirmButtonText: 'OK'
+        });
+    }
+});
+
+//place order
+$(document).on("click", "#placeOrder", () => {
+    let cashPaid = $("#cashPaid").val();
+    let balance = $("#balance").val();
+    if (cashPaid === "" || balance === "") {
+        Swal.fire({
+            title: 'error',
+            text: 'All fields are required',
+            icon: 'error',
+            confirmButtonText: 'OK'
+        })
+    } else {
+        let order = new placeOrderModel(null, null, null, null, null, null, null);
+        ordersArray.push(order);
+        loadAllOrders();
+        clearText();
+
+        Swal.fire({
+            title: 'success',
+            text: 'Order placed successfully',
             icon: 'success',
             confirmButtonText: 'OK'
         });
