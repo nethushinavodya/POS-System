@@ -36,7 +36,7 @@ function loadAllCustomers() {
             confirmButtonText: 'OK'
         });
     });
-}
+};
 
 //save customer
 $(document).ready(() => {
@@ -69,7 +69,7 @@ $(document).ready(() => {
             });
         }
     });
-})
+});
 
 //update customer
 $(document).on("click", "#customerUpdate", () => {
@@ -100,7 +100,7 @@ $(document).on("click", "#customerUpdate", () => {
             confirmButtonText: 'OK'
         });
     }
-})
+});
 //set customer
 $("#customerTableBody").on("click", 'tr', function () {
     let customerId = $(this).find("td").eq(0).text();
@@ -117,15 +117,26 @@ function clearText() {
     $("#name").val("");
     $("#address").val("");
     $("#telephone").val("");
-}
+};
 
+/*
 //set customer contact to the drop down search
 const loadCustomerContact = () => {
     $("#customerContactSelect").empty();
-    $("#customerContactSelect").append("<option value=''>Select Customer</option>");
+    $("#customerContactSelect").append('<option value=" ">Select Contact</option>');
     customersArray.map((customer) => {
         let data = `<option value="${customer._telephone}">${customer._telephone}</option>`
         $("#customerContactSelect").append(data);
     });
-}
-
+};
+//search customer
+$(document).on("click", "#customerSearch", () => {
+    console.log("clicked");
+    let customerContact = $("#customerContactSelect").val();
+    let customer = customersArray.find((customer) => customer._telephone === customerContact);
+    $("#customerId").val(customer._customerId);
+    $("#name").val(customer._name);
+    $("#address").val(customer._address);
+    $("#telephone").val(customer._telephone);
+});
+*/
