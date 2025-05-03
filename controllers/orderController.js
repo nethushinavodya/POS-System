@@ -47,13 +47,13 @@ function loadAllOrders() {
 }
 //clear text
 function clearText() {
-    $("#orderId").val('');
-    $("#customerId").val('');
-    $("#itemId").val('');
+    $("#orderID").val('');
+    $("#customerIdSelect").val('');
+    $("#itemIdSelect").val('');
     $("#description").val('');
-    $("#unitPrice").val('');
-    $("#quantity").val('');
-    $("#total").val('');
+    $("#itemPrice").val('');
+    $("#stockQty").val('');
+    $("#orderQty").val('');
 }
 //load items
 const loadItems = () => {
@@ -92,6 +92,7 @@ $("#customerIdSelect").on("change", () => {
     let customer = customersArray.find((customer) => customer._customerId === customerId);
     $("#customerInfo").val(`Name: ${customer._name}\nAddress: ${customer._address}\nContact: ${customer._telephone}`);
 });
+
 $(document).ready(() => {
     $("#placeOrderNav").on("click", function () {
     console.log("clicked");
@@ -105,14 +106,15 @@ $(document).ready(() => {
 
 //add to cart
 $(document).on("click", "#addToCart", () => {
-    let orderId = $("#orderId").val();
-    let customerId = $("#customerId").val();
+    let orderId = $("#orderID").val();
+    let customerId = $("#customerIdSelect").val();
     let itemId = $("#selectItem").val();
-    let description = $("#description").val();
-    let unitPrice = $("#unitPrice").val();
-    let quantity = $("#quantity").val();
-    let total = $("#total").val();
-
+    let item = itemsArray.find((item) => item._itemId === itemId);
+    let description = item._name;
+    let unitPrice = $("#itemPrice").val();
+    let quantity = $("#orderQty").val();
+    let total = unitPrice * quantity;
+    console.log(orderId, customerId, itemId, description, unitPrice, quantity, total);
     if (orderId === "" || customerId === "" || itemId === "" || description === "" || unitPrice === "" || quantity === "" || total === "") {
         Swal.fire({
             title: 'error',
@@ -123,6 +125,9 @@ $(document).on("click", "#addToCart", () => {
     } else {
         let order = new placeOrderModel(orderId, customerId, itemId, description, unitPrice, quantity, total);
         ordersArray.push(order);
+
+        let item = itemsArray.find((item) => item._itemId === itemId);
+        item._quantity -= quantity;
         loadAllOrders();
         loadItems();
         clearText();
