@@ -263,7 +263,7 @@
                                 <label for="itemCode" class="form-label">Item Code</label>
                                 <div class="input-group">
                                     <span class="input-group-text"><i class="fas fa-barcode"></i></span>
-                                    <input type="text" id="itemCode" class="form-control" placeholder="I001" required>
+                                    <input type="text" id="itemCode" class="form-control" placeholder="Item Code" required>
                                 </div>
                             </div>
                             <div class="col-md-6">
@@ -294,7 +294,6 @@
                             <div class="text-end mt-3">
                                 <button class="btn btn-success" type="button" id="itemSave"><i class="fas fa-save"></i> Save</button>
                                 <button class="btn btn-primary" type="button" id="itemUpdate"><i class="fas fa-edit"></i> Update</button>
-                                <button class="btn btn-danger" type="button" id="itemDelete"><i class="fas fa-trash"></i> Delete</button>
                                 <button type="reset" class="btn btn-secondary"><i class="fas fa-broom"></i> Clear</button>
                             </div>
                         </div>
@@ -601,6 +600,9 @@
 <script src="assets/lib/jquery-3.7.1.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script type="module" src="controllers/customerController.js"></script>
+<script type="module" src="controllers/itemController.js"></script>
+<script type="module" src="controllers/orderController.js"></script>
+<script type="module" src="controllers/orderDetailController.js"></script>
 
 <script>
     let dashboard = document.getElementById("dashboardNav");
