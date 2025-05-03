@@ -8,4 +8,5 @@ export default class PlaceOrderModel {
         this._quantity = quantity;
         this._total = total;
     }
+
 }

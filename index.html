@@ -552,17 +552,22 @@
                         <div class="col-md-4 mb-3 mb-md-0">
                             <label for="searchOrderId" class="form-label">Order ID</label>
                             <div class="input-group">
-                                <span class="input-group-text"><i class="fas fa-hashtag"></i></span>
-                                <input type="text" id="searchOrderId" class="form-control" placeholder="e.g. ORD0001">
+                                <span class="input-group-text"><i class="fas fa-user"></i></span>
+                                <select class="form-select" id="searchOrderId" required>
+                                    <option selected disabled value="">Choose a orderId</option>
+                                </select>
                             </div>
                         </div>
                         <div class="col-md-4 mb-3 mb-md-0">
                             <label for="searchCustomerId" class="form-label">Customer ID</label>
                             <div class="input-group">
                                 <span class="input-group-text"><i class="fas fa-user"></i></span>
-                                <input type="text" id="searchCustomerId" class="form-control" placeholder="e.g. C001">
+                                <select class="form-select" id="searchCustomerId" required>
+                                    <option selected disabled value="">Choose a customer</option>
+                                </select>
                             </div>
                         </div>
+
                         <div class="col-md-4">
                             <label class="form-label">Date Range</label>
                             <div class="input-group">
