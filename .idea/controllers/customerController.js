@@ -111,9 +111,21 @@ $("#customerTableBody").on("click", 'tr', function () {
     $("#telephone").val(customer._telephone);
 });
 
+//clear text
 function clearText() {
     $("#customerId").val("");
     $("#name").val("");
     $("#address").val("");
     $("#telephone").val("");
 }
+
+//set customer contact to the drop down search
+const loadCustomerContact = () => {
+    $("#customerContactSelect").empty();
+    $("#customerContactSelect").append("<option value=''>Select Customer</option>");
+    customersArray.map((customer) => {
+        let data = `<option value="${customer._telephone}">${customer._telephone}</option>`
+        $("#customerContactSelect").append(data);
+    });
+}
+
