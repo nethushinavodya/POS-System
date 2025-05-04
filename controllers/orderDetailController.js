@@ -22,8 +22,46 @@ const loadCustomerIds = () => {
     });
 }
 
-function setTable() {
-    $("#orderDetailsTableBody").empty();
+$("#searchCustomerId").on("change", function (){
+    let cId = $("#searchCustomerId").val();
+    $("#orderDetailTableBody").empty();
+    console.log(cId, "  ggfdss")
+    console.log(orderDetailsArray.length,"   gggggg")
+
+    orderDetailsArray.map((orderDetail) => {
+
+        if (orderDetail._customerId === cId) {
+            console.log(orderDetail._customerId,  "  ggggggkk")
+            let orderId = orderDetail._orderId;
+            let date = orderDetail._date;
+            let customerId = orderDetail._customerId;
+            let quantity = orderDetail._quantity;
+            let total = orderDetail._total;
+            let status = orderDetail._status;
+
+            let data = `<tr>
+                        <td>${orderId}</td>
+                        <td>${date}</td>
+                        <td>${customerId}</td>
+                        <td>${quantity}</td>
+                        <td>${total}</td>
+                        <td>${status}</td>
+                        <td>
+                            <button class="btn btn-sm btn-info view-order">
+                                <i class="fas fa-eye"></i>
+                            </button>
+                            <button class="btn btn-sm btn-secondary print-order">
+                                <i class="fas fa-print"></i>
+                            </button>
+                        </td>
+                    </tr>`;
+            $("#orderDetailTableBody").append(data);
+        }
+    });
+});
+
+    function setTable() {
+    $("#orderDetailTableBody").empty();
 
     orderDetailsArray.map((orderDetail) => {
         let orderId = orderDetail._orderId;
@@ -49,11 +87,19 @@ function setTable() {
                             </button>
                         </td>
                     </tr>`;
-        $("#orderDetailsTableBody").append(data);
+        $("#orderDetailTableBody").append(data);
     });
 }
 //search customer
 $(document).on("click", "#searchOrders", () => {
     console.log("clicked");
 
+    let customerId = $("#searchCustomerId").val();
+    let orderDetail = orderDetailsArray.find((orderDetail) => orderDetail._customerId === customerId);
+    $("#orderId").val(orderDetail._orderId);
+    $("#date").val(orderDetail._date);
+    $("#customerId").val(orderDetail._customerId);
+    $("#quantity").val(orderDetail._quantity);
+    $("#total").val(orderDetail._total);
+    $("#status").val(orderDetail._status);
 })

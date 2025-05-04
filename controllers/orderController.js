@@ -1,10 +1,12 @@
 import placeOrderModel from "../models/placeOrderModel.js";
-import {customersArray, itemsArray, ordersArray} from "../db/db.js";
+import cartModel from "../models/cartModel.js";
+import orderDetailsModel from "../models/orderDetailsModel.js";
+import {customersArray, itemsArray, ordersArray, cartArray, orderDetailsArray} from "../db/db.js";
 
 //load all orders
 function loadAllOrders() {
     $("#cartItems").empty();
-    ordersArray.map((order) => {
+    cartArray.map((order) => {
         let orderId = order._orderId;
         let customerId = order._customerId;
         let itemId = order._itemId;
@@ -31,9 +33,11 @@ function loadAllOrders() {
 
     //total amount
     let total = 0;
-    ordersArray.forEach(order => {
-        total += order.total;
+    cartArray.forEach(order => {
+        console.log(order);
+        total += order._total;
     });
+    console.log(total," ggggggggggggg")
     $("#cartTotal").text('Rs. ' + total.toFixed(2));
 
     //cash paid
@@ -42,23 +46,23 @@ function loadAllOrders() {
         let balance = total - cashPaid;
         $("#balance").val('Rs. ' + balance.toFixed(2));
     });
-
-    //delete order
-    $(document).on("click", "#deleteOrder", () => {
-        let orderId = $(this).closest("tr").find("td").eq(0).text();
-        let index = ordersArray.findIndex((order) => order._orderId === orderId);
-        ordersArray.splice(index, 1);
-        loadAllOrders();
-        clearText();
-
-        Swal.fire({
-            title: 'success',
-            text: 'Order deleted successfully',
-            icon: 'success',
-            confirmButtonText: 'OK'
-        });
-    });
 }
+
+//delete order
+$(document).on("click", "#deleteOrder", () => {
+    let orderId = $(this).closest("tr").find("td").eq(0).text();
+    let index = cartArray.findIndex((order) => order._orderId === orderId);
+    cartArray.splice(index, 1);
+    loadAllOrders();
+    clearText();
+
+    Swal.fire({
+        title: 'success',
+        text: 'Order deleted successfully',
+        icon: 'success',
+        confirmButtonText: 'OK'
+    });
+});
 //clear text
 function clearText() {
     $("#orderID").val('');
@@ -110,8 +114,8 @@ $("#customerIdSelect").on("change", () => {
 $(document).ready(() => {
     $("#placeOrderNav").on("click", function () {
     console.log("clicked");
-    $("#orderID").val("ORD0" + ordersArray.length + 1);
-    console.log(ordersArray.length);
+    $("#orderID").val("ORD0" + cartArray.length + 1);
+    console.log(cartArray.length);
     $("#orderDate").val(new Date().toISOString().split('T')[0]);
     loadAllOrders();
     loadItems();
@@ -140,8 +144,9 @@ $(document).on("click", "#addToCart", () => {
             confirmButtonText: 'OK'
         })
     } else {
-        let order = new placeOrderModel(orderId, customerId, itemId, description, unitPrice, quantity, total);
-        ordersArray.push(order);
+        let cart = new cartModel(orderId, customerId, itemId, description, unitPrice, quantity, total);
+        console.log(cart);
+        cartArray.push(cart);
 
         let item = itemsArray.find((item) => item._itemId === itemId);
         item._quantity -= quantity;
@@ -159,12 +164,12 @@ $(document).on("click", "#addToCart", () => {
 });
 
 //place order
-$("#placeOrder").on("click", function (event) {
-    event.preventDefault();
-    let cashPaid = $("#cashPaid").val();
-    let balance = $("#balance").val();
-    console.log(cashPaid, balance);
-    if (cashPaid === "" || balance === "") {
+$("#placeOrder").on("click", () => {
+    let orderId = $("#orderID").val();
+    let customerId = $("#customerIdSelect").val();
+    let total = $("#total").val();
+
+    if (total === "") {
         Swal.fire({
             title: 'error',
             text: 'All fields are required',
@@ -172,15 +177,21 @@ $("#placeOrder").on("click", function (event) {
             confirmButtonText: 'OK'
         })
     } else {
-        let order = new placeOrderModel(cashPaid, balance);
+        let order = new placeOrderModel(orderId, customerId, total);
         ordersArray.push(order);
+        //cart map
+        cartArray.map((cart) => {
+            let orderId = cart._orderId;
+            let date = cart._date;
+            let customerId = cart._customerId;
+            let quantity = cart._quantity;
+            let total = cart._total;
+
+            let order = new orderDetailsModel(orderId, date, customerId, quantity, total, "Completed");
+            orderDetailsArray.push(order);
+        })
         loadAllOrders();
         clearText();
-
-        $("#cashPaid").val('');
-        $("#balance").val('');
-        $("#cartItems").empty();
-        $("#cartTotal").text('Rs. 0.00');
 
         Swal.fire({
             title: 'success',
