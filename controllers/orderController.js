@@ -110,6 +110,8 @@ $("#customerIdSelect").on("change", () => {
 $(document).ready(() => {
     $("#placeOrderNav").on("click", function () {
     console.log("clicked");
+    $("#orderID").val("ORD0" + ordersArray.length + 1);
+    console.log(ordersArray.length);
     $("#orderDate").val(new Date().toISOString().split('T')[0]);
     loadAllOrders();
     loadItems();
