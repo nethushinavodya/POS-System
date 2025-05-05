@@ -50,7 +50,9 @@ function loadAllOrders() {
 
 //delete order
 $("#deleteOrder").on("click", () => {
+    console.log("clicked")
     let orderId = $(this).closest("tr").find("td").eq(0).text();
+    console.log(orderId)
     let index = cartArray.findIndex((order) => order._orderId === orderId);
     cartArray.splice(index, 1);
     loadAllOrders();
