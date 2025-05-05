@@ -51,7 +51,6 @@ $("#orderDetailTableBody").empty();
 $(document).ready(() => {
     $("#orderDetailsNav").on("click", function () {
         console.log("clicked");
-        loadCustomerIds();
         setTable();
     });
 });
