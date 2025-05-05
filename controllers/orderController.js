@@ -125,7 +125,7 @@ $(document).ready(() => {
 
 
 //add to cart
-$(document).on("click", "#addToCart", () => {
+$("#addToCart").on("click", function () {
     let orderId = $("#orderID").val();
     let customerId = $("#customerIdSelect").val();
     let itemId = $("#selectItem").val();
