@@ -41,7 +41,7 @@ function loadAllOrders() {
     $("#cartTotal").text('Rs. ' + total.toFixed(2));
 
     //cash paid
-    $(document).on("input", "#cashPaid", () => {
+    $("#cashPaid").on("input", () => {
         let cashPaid = $("#cashPaid").val();
         let balance = total - cashPaid;
         $("#balance").val('Rs. ' + balance.toFixed(2));
