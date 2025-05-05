@@ -49,7 +49,7 @@ function loadAllOrders() {
 }
 
 //delete order
-$(document).on("click", "#deleteOrder", () => {
+$("#deleteOrder").on("click", () => {
     let orderId = $(this).closest("tr").find("td").eq(0).text();
     let index = cartArray.findIndex((order) => order._orderId === orderId);
     cartArray.splice(index, 1);
@@ -125,7 +125,7 @@ $(document).ready(() => {
 
 
 //add to cart
-$("#addToCart").on("click", function () {
+$("#addToCart").on("click",() => {
     let orderId = $("#orderID").val();
     let customerId = $("#customerIdSelect").val();
     let itemId = $("#selectItem").val();
