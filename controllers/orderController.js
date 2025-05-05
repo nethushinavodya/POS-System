@@ -48,33 +48,45 @@ function loadAllOrders() {
     });
 }
 
-//delete order
-$(document).on("click", "#deleteOrder", (e) => {
-    console.log("clicked")
-    let orderId = $(e.target).closest("tr").find("td").eq(0).text();
-    console.log(orderId)
-    let index = cartArray.findIndex((order) => order._orderId === orderId);
-    cartArray.splice(index, 1);
-    loadAllOrders();
-    clearText();
-
-    Swal.fire({
-        title: 'success',
-        text: 'Order deleted successfully',
-        icon: 'success',
-        confirmButtonText: 'OK'
-    });
-});
-//clear text
-function clearText() {
-    $("#orderID").val('');
-    $("#customerIdSelect").val('');
-    $("#selectItem").val('');
-    $("#customerInfo").val('');
-    $("#itemPrice").val('');
-    $("#stockQty").val('');
-    $("#orderQty").val('');
+const updateItemQty = (itemId, qty) => {
+    let item = itemsArray.find((item) => item._itemId === itemId);
+    if (item) {
+        item._quantity = parseInt(item._quantity) + parseInt(qty);
+        console.log(`Updated item ${itemId} quantity to: ${item._quantity}`);
+    } else {
+        console.error(`Item with ID ${itemId} not found`);
+    }
+    loadItems();
 }
+
+$(document).on("click", "#deleteOrder", (e) => {
+    console.log("clicked");
+    let row = $(e.target).closest("tr");
+    let orderId = row.find("td").eq(0).text();
+    console.log("Order ID to delete:", orderId);
+
+    let index = cartArray.findIndex((order) => order._orderId === orderId);
+    if (index !== -1) {
+        let qty = parseInt(cartArray[index]._quantity);
+        let itemId = cartArray[index]._itemId;
+        console.log(`Deleting order with itemId: ${itemId}, qty: ${qty}`);
+
+        cartArray.splice(index, 1);
+        loadAllOrders();
+        clearText();
+        updateItemQty(itemId, qty);
+
+        Swal.fire({
+            title: 'Success',
+            text: 'Order deleted successfully',
+            icon: 'success',
+            confirmButtonText: 'OK'
+        });
+    } else {
+        console.error("Order not found:", orderId);
+    }
+});
+
 //load items
 const loadItems = () => {
     console.log("load items");
@@ -152,9 +164,12 @@ $("#addToCart").on("click",() => {
 
         let item = itemsArray.find((item) => item._itemId === itemId);
         item._quantity -= quantity;
+
         loadAllOrders();
         loadItems();
         clearText();
+        $("#itemPrice").val('');
+        $("#stockQty").val('');
 
         Swal.fire({
             title: 'success',
@@ -194,6 +209,11 @@ $("#placeOrder").on("click", () => {
         })
         loadAllOrders();
         clearText();
+        cartArray.length = 0;
+        $("#cartItems").empty();
+        $("#cartTotal").text('Rs. 0.00');
+        $("#cashPaid").val('');
+        $("#balance").val('');
 
         Swal.fire({
             title: 'success',
@@ -203,3 +223,18 @@ $("#placeOrder").on("click", () => {
         });
     }
 });
+
+
+//clear text
+function clearText() {
+    $("#orderID").val('');
+    $("#customerIdSelect").val('');
+    $("#selectItem").val('');
+    $("#customerInfo").val('');
+    $("#itemPrice").val('');
+    $("#stockQty").val('');
+    $("#orderQty").val('');
+
+    loadItems();
+    loadCustomers();
+}
