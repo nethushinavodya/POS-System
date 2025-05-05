@@ -91,7 +91,7 @@ $("#searchCustomerId").on("change", function (){
     });
 }
 //search customer
-$(document).on("click", "#searchOrders", () => {
+$("#searchOrders").on("click", () => {
     console.log("clicked");
 
     let customerId = $("#searchCustomerId").val();
