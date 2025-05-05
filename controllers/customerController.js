@@ -25,7 +25,7 @@ function loadAllCustomers() {
 }
 
 //delete customer
-$(document).on("click", "#deleteCustomer", () => {
+$("#deleteCustomer").on("click", () => {
     let customerId = $(this).closest("tr").find("td").eq(0).text();
     let index = customersArray.findIndex((customer) => customer._customerId === customerId);
     customersArray.splice(index, 1);
@@ -40,40 +40,39 @@ $(document).on("click", "#deleteCustomer", () => {
 });
 
 //save customer
-$(document).ready(() => {
-    $(document).on("click", "#customerSave", () => {
-        console.log("clicked");
-        let customerId = $("#customerId").val();
-        let name = $("#name").val();
-        let address = $("#address").val();
-        let telephone = $("#telephone").val();
+$("#customerSave").on("click", () => {
+    console.log("clicked");
+    let customerId = $("#customerId").val();
+    let name = $("#name").val();
+    let address = $("#address").val();
+    let telephone = $("#telephone").val();
 
-        if (customerId === "" || name === "" || address === "" || telephone === "") {
-            Swal.fire({
-                title: 'error',
-                text: 'All fields are required',
-                icon: 'error',
-                confirmButtonText: 'OK'
-            })
-        } else {
-            let customer = new customerModel(customerId, name, address, telephone);
-            customersArray.push(customer);
-            console.log(customersArray);
-            loadAllCustomers();
-            clearText();
+    if (customerId === "" || name === "" || address === "" || telephone === "") {
+        Swal.fire({
+            title: 'error',
+            text: 'All fields are required',
+            icon: 'error',
+            confirmButtonText: 'OK'
+        })
+    } else {
+        let customer = new customerModel(customerId, name, address, telephone);
+        customersArray.push(customer);
+        console.log(customersArray);
+        loadAllCustomers();
+        clearText();
 
-            Swal.fire({
-                title: 'success',
-                text: 'Customer added successfully',
-                icon: 'success',
-                confirmButtonText: 'OK'
-            });
-        }
-    });
+        Swal.fire({
+            title: 'success',
+            text: 'Customer added successfully',
+            icon: 'success',
+            confirmButtonText: 'OK'
+        });
+    }
 });
 
+
 //update customer
-$(document).on("click", "#customerUpdate", () => {
+$("#customerUpdate").on("click", () => {
     let customerId = $("#customerId").val();
     let name = $("#name").val();
     let address = $("#address").val();
