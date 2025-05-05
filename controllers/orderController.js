@@ -114,7 +114,7 @@ $("#customerIdSelect").on("change", () => {
 $(document).ready(() => {
     $("#placeOrderNav").on("click", function () {
     console.log("clicked");
-    $("#orderID").val("ORD0" + cartArray.length + 1);
+    $("#orderID").val(cartArray.length + 1);
     console.log(cartArray.length);
     $("#orderDate").val(new Date().toISOString().split('T')[0]);
     loadAllOrders();

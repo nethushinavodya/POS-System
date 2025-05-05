@@ -5,7 +5,6 @@ import {customersArray, itemsArray, ordersArray , orderDetailsArray} from "../db
 function setTable() {
 $("#orderDetailTableBody").empty();
     orderDetailsArray.map((orderDetail) => {
-        if (orderDetail._customerId === cId) {
             console.log(orderDetail._customerId,  "  ggggggkk")
             let orderId = orderDetail._orderId;
             let date = orderDetail._date;
@@ -31,8 +30,7 @@ $("#orderDetailTableBody").empty();
                         </td>
                     </tr>`;
             $("#orderDetailTableBody").append(data);
-        }
-    });
+        });
 }
 //search customer
 /*$("#searchOrders").on("click", () => {
