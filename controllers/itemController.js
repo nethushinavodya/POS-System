@@ -24,7 +24,7 @@ function loadItems() {
     });
 }
 //delete item
-$(document).on("click", "#deleteItem", () => {
+$( "#deleteItem").on("click", () => {
     let itemId = $(this).closest("tr").find("td").eq(0).text();
     let index = itemsArray.findIndex((item) => item._itemId === itemId);
     itemsArray.splice(index, 1);
@@ -40,7 +40,7 @@ $(document).on("click", "#deleteItem", () => {
 });
 
 //save item
-$(document).on("click", "#itemSave", () => {
+$("#itemSave").on("click", () => {
     let itemId = $("#itemCode").val();
     let name = $("#itemName").val();
     let unitPrice = $("#itemAmount").val();
@@ -70,7 +70,7 @@ $(document).on("click", "#itemSave", () => {
 });
 
 //update item
-$(document).on("click", "#itemUpdate", () => {
+$("#itemUpdate").on("click", () => {
     let itemId = $("#itemCode").val();
     let name = $("#itemName").val();
     let unitPrice = $("#itemAmount").val();
@@ -130,7 +130,7 @@ const setItem = () => {
     });
 }
 //search item
-$(document).on("click", "#itemSearch", () => {
+$("#itemSearch").on("click", () => {
     let itemId = $("#itemIdSelect").val();
     let item = itemsArray.find((item) => item._itemId === itemId);
     $("#itemCode").val(item._itemId);
