@@ -17,7 +17,7 @@ function loadAllCustomers() {
                         <td>${address}</td>
                         <td>${telephone}</td>
                         <td>
-                            <button class="btn btn-sm btn-danger" id="deleteCustomer"><i class="fas fa-trash"></i></button>
+                            <button class="btn btn-sm btn-danger " id="deleteCustomer"><i class="fas fa-trash"></i></button>
                         </td>
                     </tr>`;
         $("#customerTableBody").append(data);
@@ -25,8 +25,10 @@ function loadAllCustomers() {
 }
 
 //delete customer
-$("#deleteCustomer").on("click", () => {
-    let customerId = $(this).closest("tr").find("td").eq(0).text();
+$(document).on("click", "#deleteCustomer",() => {
+    console.log("adsadsadsdsadsadsadsadasd")
+
+    let customerId = $(this).data("customer-id");
     let index = customersArray.findIndex((customer) => customer._customerId === customerId);
     customersArray.splice(index, 1);
     loadAllCustomers();
