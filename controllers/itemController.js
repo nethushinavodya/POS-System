@@ -24,8 +24,8 @@ function loadItems() {
     });
 }
 //delete item
-$(document).on("click", () => {
-    let itemId = $(this).closest("tr").find("td").eq(0).text();
+$(document).on("click", "#deleteItem", () => {
+    let itemId = $(e.target).closest("tr").find("td").eq(0).text();
     let index = itemsArray.findIndex((item) => item._itemId === itemId);
     itemsArray.splice(index, 1);
     loadItems();

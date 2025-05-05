@@ -25,10 +25,10 @@ function loadAllCustomers() {
 }
 
 //delete customer
-$(document).on("click", "#deleteCustomer",() => {
+$(document).on("click", "#deleteCustomer",(e) => {
     console.log("adsadsadsdsadsadsadsadasd")
 
-    let customerId = $(this).data("customer-id");
+    let customerId = $(e.target).closest("tr").find("td").eq(0).text();
     let index = customersArray.findIndex((customer) => customer._customerId === customerId);
     customersArray.splice(index, 1);
     loadAllCustomers();

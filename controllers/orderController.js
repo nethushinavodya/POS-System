@@ -49,7 +49,7 @@ function loadAllOrders() {
 }
 
 //delete order
-$("#deleteOrder").on("click", () => {
+$(document).on("click", "#deleteOrder", () => {
     console.log("clicked")
     let orderId = $(this).closest("tr").find("td").eq(0).text();
     console.log(orderId)
