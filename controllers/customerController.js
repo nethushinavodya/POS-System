@@ -71,8 +71,6 @@ $("#customerSave").on("click", () => {
         });
     }
 });
-
-
 //update customer
 $("#customerUpdate").on("click", () => {
     let customerId = $("#customerId").val();
@@ -121,6 +119,52 @@ function clearText() {
     $("#telephone").val("");
 };
 
+
+$("#customerId").on("input", function() {
+    let customerId = $(this).val();
+    let customerIdError = "";
+    if (customerId === "") {
+        customerIdError = "Customer ID is required";
+    } else if (!/^C\d{3,}$/.test(customerId)) {
+        customerIdError = "Invalid customer ID format (e.g. C001)";
+    }
+    $("#customerIdError").text(customerIdError);
+});
+
+$("#name").on("input", function() {
+    let name = $(this).val();
+    let nameError = "";
+    if (name === "") {
+        nameError = "Name is required";
+    } else if (!/^[a-zA-Z ]{4,}$/.test(name)) {
+        nameError = "Name should be at least 4 characters";
+    }
+    $("#nameError").text(nameError);
+});
+
+// Validate address
+$("#address").on("input", function() {
+    let address = $(this).val();
+    let addressError = "";
+    if (address === "") {
+        addressError = "Address is required";
+    } else if (!/^[a-zA-Z\s]{5,}$/.test(address)) {
+        addressError = "Invalid address format (e.g. Colombo)";
+    }
+    $("#addressError").text(addressError);
+});
+
+// Validate telephone
+$("#telephone").on("input", function() {
+    let telephone = $(this).val();
+    let telephoneError = "";
+    if (telephone === "") {
+        telephoneError = "Contact is required";
+    } else if (!/^\d{10}$/.test(telephone)) {
+        telephoneError = "Contact number should be 10 digits (e.g. 0712345678)";
+    }
+    $("#telephoneError").text(telephoneError);
+});
 /*
 //set customer contact to the drop down search
 const loadCustomerContact = () => {
