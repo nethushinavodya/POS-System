@@ -117,9 +117,9 @@ function clearText() {
     $("#name").val("");
     $("#address").val("");
     $("#telephone").val("");
-};
+}
 
-
+//validate customers
 $("#customerId").on("input", function() {
     let customerId = $(this).val();
     let customerIdError = "";

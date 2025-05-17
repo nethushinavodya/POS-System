@@ -138,3 +138,48 @@ $("#itemSearch").on("click", () => {
     $("#itemAmount").val(item._unitPrice);
     $("#itemQty").val(item._quantity);
 })
+
+//validate items
+$("#itemCode").on("input", function (){
+    let itemId = $(this).val();
+    let itemIdError = " ";
+    if (itemId === "") {
+        itemIdError = "Item ID is required";
+    } else if (!/^I\d{3,}$/.test(itemId)) {
+        itemIdError = "Invalid customer ID format (e.g. I001)";
+    }
+    $("#itemCodeError").text(itemIdError);
+})
+
+$("#itemName").on("input", function () {
+    let name = $(this).val();
+    let nameError = " ";
+    if (name === "") {
+        nameError = "Item name is required";
+    }else if (!/^[A-Za-z\s]+$/.test(name)) {
+        nameError = "Item name should contain only letters and spaces";
+    }
+    $("#itemNameError").text(nameError);
+})
+
+$("#itemAmount").on("input", function () {
+    let amount = $(this).val();
+    let amountError = " ";
+    if (amount === "") {
+        amountError = "Item amount is required";
+    }else if (!/^\d+(\.\d{1,2})?$/.test(amount)) {
+        amountError = "Item amount should be a number.(e.g. 100.00)";
+    }
+    $("#itemPriceError").text(amountError);
+})
+
+$("#itemQty").on("input", function () {
+    let quantity = $(this).val();
+    let quantityError = " ";
+    if (quantity === "") {
+        quantityError = "Item quantity is required";
+    }else if (!/^\d+$/.test(quantity)) {
+        quantityError = "Item quantity should be a number.(e.g. 50)";
+    }
+    $("#itemQtyError").text(quantityError);
+})
